@@ -23,12 +23,6 @@ export default function Home({ allPostsData }) {
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [isTokenFound, setTokenFound] = useState(false);
   getToken(setTokenFound);
-  // onMessageListener &&
-  //   onMessageListener()
-  //     .then((message) => {
-  //       setShow(true);
-  //     })
-  //     .catch((err) => console.log("failed: ", err));
   onMessageListener() &&
     onMessageListener()
       .then((payload) => {
@@ -53,14 +47,18 @@ export default function Home({ allPostsData }) {
         delay={3000}
         autohide
         animation
-        style={{ position: "absolute", top: 20, right: 20 }}
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          minWidth: 200,
+        }}
       >
         <Toast.Header>
-          {/* <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" /> */}
-          <strong className="mr-auto">Notification</strong>
-          <small>12 mins ago</small>
+          <strong className="mr-auto">{notification.title}</strong>
+          <small>just now</small>
         </Toast.Header>
-        <Toast.Body>There are some new updates that you might love!</Toast.Body>
+        <Toast.Body>{notification.body}</Toast.Body>
       </Toast>
       <Head>
         <title>{siteTitle}</title>

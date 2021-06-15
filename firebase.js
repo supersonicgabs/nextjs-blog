@@ -47,14 +47,10 @@ export const getToken = (setTokenFound) => {
   }
 };
 
-export const onMessageListener = () => {
-  if (!process.browser) {
-    return;
-  } else {
-    new Promise((resolve) => {
-      messaging.onMessage((payload) => {
-        resolve(payload);
-      });
+export const onMessageListener = () =>
+  new Promise((resolve) => {
+    messaging.onMessage((payload) => {
+      console.log("msg test");
+      resolve(payload);
     });
-  }
-};
+  });
