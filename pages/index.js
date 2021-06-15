@@ -4,6 +4,10 @@ import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
+import { useState } from "react";
+import { getToken, onMessageListener } from "../firebase";
+import { Button, Row, Col, Toast } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -15,8 +19,49 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allPostsData }) {
+  const [show, setShow] = useState(false);
+  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [isTokenFound, setTokenFound] = useState(false);
+  getToken(setTokenFound);
+  // onMessageListener &&
+  //   onMessageListener()
+  //     .then((message) => {
+  //       setShow(true);
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
+  onMessageListener() &&
+    onMessageListener()
+      .then((payload) => {
+        setShow(true);
+        setNotification({
+          title: payload.notification.title,
+          body: payload.notification.body,
+        });
+        console.log(payload);
+      })
+      .catch((err) => console.log("failed: ", err));
   return (
     <Layout home>
+      {isTokenFound ? (
+        <h1> Notification permission enabled 👍🏻 </h1>
+      ) : (
+        <h1> Need notification permission ❗️ </h1>
+      )}
+      <Toast
+        onClose={() => setShow(false)}
+        show={show}
+        delay={3000}
+        autohide
+        animation
+        style={{ position: "absolute", top: 20, right: 20 }}
+      >
+        <Toast.Header>
+          {/* <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" /> */}
+          <strong className="mr-auto">Notification</strong>
+          <small>12 mins ago</small>
+        </Toast.Header>
+        <Toast.Body>There are some new updates that you might love!</Toast.Body>
+      </Toast>
       <Head>
         <title>{siteTitle}</title>
       </Head>
@@ -43,6 +88,7 @@ export default function Home({ allPostsData }) {
           ))}
         </ul>
       </section>
+      <Button onClick={() => setShow(true)}>Show Toast</Button>
     </Layout>
   );
 }
