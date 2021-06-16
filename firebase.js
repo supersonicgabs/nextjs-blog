@@ -18,33 +18,34 @@ if (process.browser) {
 }
 
 export const getToken = (setTokenFound) => {
-  if (!process.browser) {
-    return;
-  } else {
-    return messaging
-      .getToken({
-        vapidKey:
-          "BKHo2ceef2SWq3ey_Jdu_4dzoZcSyAUfrZ2KLcwJcO0H3bR79_9jV8EL9WQNC-nUvKHMnD46QXdEQ-z_Mdi5Uvc",
-      })
-      .then((currentToken) => {
-        if (currentToken) {
-          console.log("current token for client: ", currentToken);
-          setTokenFound(true);
-          // Track the token -> client mapping, by sending to backend server
-          // show on the UI that permission is secured
-        } else {
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
-          setTokenFound(false);
-          // shows on the UI that permission is required
-        }
-      })
-      .catch((err) => {
-        console.log("An error occurred while retrieving token. ", err);
-        // catch error while creating client token
-      });
-  }
+  //   if (!process.browser) {
+  //     return;
+  //   } else {
+  if (!process.browser) return;
+  return messaging
+    .getToken({
+      vapidKey:
+        "BKHo2ceef2SWq3ey_Jdu_4dzoZcSyAUfrZ2KLcwJcO0H3bR79_9jV8EL9WQNC-nUvKHMnD46QXdEQ-z_Mdi5Uvc",
+    })
+    .then((currentToken) => {
+      if (currentToken) {
+        console.log("current token for client: ", currentToken);
+        setTokenFound(true);
+        // Track the token -> client mapping, by sending to backend server
+        // show on the UI that permission is secured
+      } else {
+        console.log(
+          "No registration token available. Request permission to generate one."
+        );
+        setTokenFound(false);
+        // shows on the UI that permission is required
+      }
+    })
+    .catch((err) => {
+      console.log("An error occurred while retrieving token. ", err);
+      // catch error while creating client token
+    });
+  //   }
 };
 
 export const onMessageListener = () =>
