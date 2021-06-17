@@ -49,25 +49,25 @@ export default function Home({ allPostsData }) {
   // function logMessage(message) {
   //   log.append(new Date() + " " + message + "\n");
   // }
-  getToken(setTokenFound);
-  onMessageListener() &&
-    onMessageListener()
-      .then((payload) => {
-        setShow(true);
-        setNotification({
-          title: payload.notification.title,
-          body: payload.notification.body,
-        });
-        console.log(payload);
-      })
-      .catch((err) => console.log("failed: ", err));
+  // getToken(setTokenFound);
+  // onMessageListener() &&
+  //   onMessageListener()
+  //     .then((payload) => {
+  //       setShow(true);
+  //       setNotification({
+  //         title: payload.notification.title,
+  //         body: payload.notification.body,
+  //       });
+  //       console.log(payload);
+  //     })
+  //     .catch((err) => console.log("failed: ", err));
   return (
     <Layout home>
-      {isTokenFound ? (
+      {/* {isTokenFound ? (
         <h1> Notification permission enabled 👍🏻 </h1>
       ) : (
         <h1> Need notification permission ❗️ </h1>
-      )}
+      )} */}
       <Toast
         onClose={() => setShow(false)}
         show={show}
