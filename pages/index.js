@@ -28,7 +28,7 @@ export default function Home({ allPostsData }) {
     // document.addEventListener('message', function(msg) {})
     // document.ReactNativeWebView.postMessage("Hello React Native!");
 
-    window.addEventListener(
+    document.addEventListener(
       "message",
       function (event) {
         console.log("Received post message", event);
