@@ -11,16 +11,31 @@ var firebaseConfig = {
   measurementId: "G-NYLY9KDRQ9",
 };
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+  //   messaging = firebase.messaging();
+}
+
 let messaging;
 if (process.browser) {
-  firebase.initializeApp(firebaseConfig);
   messaging = firebase.messaging();
 }
+
+// const messaging = firebase.messaging();
+// firebase.initializeApp(firebaseConfig);
+// let messaging;
+// if (typeof window !== "undefined") {
+//   firebase.initializeApp(firebaseConfig);
+//   messaging = firebase.messaging();
+// }
 
 export const getToken = (setTokenFound) => {
   //   if (!process.browser) {
   //     return;
   //   } else {
+  //   if (typeof window === "undefined") return;
   if (!process.browser) return;
   return messaging
     .getToken({
@@ -48,10 +63,21 @@ export const getToken = (setTokenFound) => {
   //   }
 };
 
-export const onMessageListener = () =>
-  new Promise((resolve) => {
+export const onMessageListener = () => {
+  // if (typeof window === "undefined") return;
+  if (!process.browser) return;
+  return new Promise((resolve) => {
     messaging.onMessage((payload) => {
       console.log("msg test");
       resolve(payload);
     });
   });
+  //   if (process.browser) {
+  //     return new Promise((resolve) => {
+  //       messaging.onMessage((payload) => {
+  //         console.log("msg test");
+  //         resolve(payload);
+  //       });
+  //     });
+  //   }
+};

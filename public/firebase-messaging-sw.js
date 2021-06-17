@@ -25,13 +25,14 @@ if ("serviceWorker" in navigator) {
 }
 
 firebase.initializeApp(firebaseConfig);
+
 const messaging = firebase.messaging();
+//   if (!process.browser) return;
 messaging.onBackgroundMessage(function (payload) {
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
   };
-
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
 

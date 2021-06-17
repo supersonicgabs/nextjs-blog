@@ -4,7 +4,7 @@ import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getToken, onMessageListener } from "../firebase";
 import { Button, Row, Col, Toast } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,6 +22,33 @@ export default function Home({ allPostsData }) {
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState({ title: "", body: "" });
   const [isTokenFound, setTokenFound] = useState(false);
+
+  // var log = document.getElementById("btn-test");
+  useEffect(() => {
+    // document.addEventListener('message', function(msg) {})
+    // document.ReactNativeWebView.postMessage("Hello React Native!");
+
+    window.addEventListener(
+      "message",
+      function (event) {
+        console.log("Received post message", event);
+
+        // logMessage(event.data);
+      },
+      false
+    );
+  }, []);
+
+  const sendMessage = () => {
+    console.log("Send post message");
+
+    // logMessage("Sending post message from web..");
+    window.postMessage("Post message from web", "*");
+  };
+
+  // function logMessage(message) {
+  //   log.append(new Date() + " " + message + "\n");
+  // }
   getToken(setTokenFound);
   onMessageListener() &&
     onMessageListener()
@@ -86,7 +113,10 @@ export default function Home({ allPostsData }) {
           ))}
         </ul>
       </section>
-      <Button onClick={() => setShow(true)}>Show Toast</Button>
+      {/* <Button onClick={() => setShow(true)}>Show Toast</Button> */}
+      <Button id="btn-test" onClick={sendMessage}>
+        Show Toast
+      </Button>
     </Layout>
   );
 }
