@@ -28,7 +28,7 @@ export default function Home({ allPostsData }) {
     // document.addEventListener('message', function(msg) {})
     // document.ReactNativeWebView.postMessage("Hello React Native!");
 
-    document.addEventListener(
+    window.addEventListener(
       "message",
       function (event) {
         console.log("Received post message", event);
@@ -37,7 +37,19 @@ export default function Home({ allPostsData }) {
       },
       false
     );
-  }, []);
+
+    return () => {
+      window.removeEventListener(
+        "message",
+        function (event) {
+          console.log("Received post message", event);
+
+          // logMessage(event.data);
+        },
+        false
+      );
+    };
+  });
 
   const sendMessage = () => {
     console.log("Send post message");
