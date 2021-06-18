@@ -4,8 +4,8 @@ import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
-import { useEffect, useState } from "react";
-import { Button, Row, Col, Toast } from "react-bootstrap";
+import { useEffect } from "react";
+import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export async function getStaticProps() {
