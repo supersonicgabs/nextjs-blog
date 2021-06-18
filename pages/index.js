@@ -18,10 +18,6 @@ export async function getStaticProps() {
 }
 
 export default function Home({ allPostsData }) {
-  const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({ title: "", body: "" });
-  const [isTokenFound, setTokenFound] = useState(false);
-
   useEffect(() => {
     window.addEventListener(
       "message",
@@ -49,25 +45,6 @@ export default function Home({ allPostsData }) {
 
   return (
     <Layout home>
-      <Toast
-        onClose={() => setShow(false)}
-        show={show}
-        delay={3000}
-        autohide
-        animation
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          minWidth: 200,
-        }}
-      >
-        <Toast.Header>
-          <strong className="mr-auto">{notification.title}</strong>
-          <small>just now</small>
-        </Toast.Header>
-        <Toast.Body>{notification.body}</Toast.Body>
-      </Toast>
       <Head>
         <title>{siteTitle}</title>
       </Head>
