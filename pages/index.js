@@ -94,9 +94,7 @@ export default function Home({ allPostsData }) {
           ))}
         </ul>
       </section>
-      <button id="btn-test" onClick={sendMessage}>
-        Show Toast
-      </button>
+      <Button onClick={sendMessage}>Show Toast</Button>
     </Layout>
   );
 }
